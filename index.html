@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nepglish Speech Converter</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+Devanagari:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+<div class="app">
+
+    <!-- HEADER -->
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">
+                <span class="logo-icon">🎤</span>
+                <div class="logo-text">
+                    <h1>Nepglish Converter</h1>
+                    <p>Speech → Devanagari</p>
+                </div>
+            </div>
+            <div class="status-badge">
+                <span class="status-dot" id="statusDot"></span>
+                <span id="statusText">Connecting...</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN -->
+    <main class="main">
+
+        <!-- RECORD SECTION -->
+        <div class="card record-section">
+            <h2>🎙️ Record Your Voice</h2>
+            <p class="subtitle">Speak in Nepali, English, or Nepglish</p>
+
+            <div class="visualizer-container">
+                <canvas id="visualizer"></canvas>
+                <div class="visualizer-placeholder" id="visualizerPlaceholder">
+                    <span>🎵</span>
+                    <p>Start recording to see audio waves</p>
+                </div>
+            </div>
+
+            <div class="timer" id="timer">00:00</div>
+
+            <div class="controls">
+                <button id="recordBtn" class="btn-record" onclick="toggleRecording()">
+                    <span id="recordIcon">🎤</span>
+                    <span id="recordText">Start Recording</span>
+                </button>
+                <button id="convertBtn" class="btn-convert" onclick="convertSpeech()" disabled>
+                    <span>⚡ Convert</span>
+                </button>
+                <button class="btn-clear" onclick="clearAll()">
+                    <span>🗑️ Clear</span>
+                </button>
+            </div>
+
+            <div id="audioSection" style="display:none;" class="audio-section">
+                <p>🎧 Your recording:</p>
+                <audio id="audioPlayer" controls preload="auto" style="width:100%; margin-top:15px; border-radius:10px;"></audio>
+            </div>
+        </div>
+
+        <!-- LOADING -->
+        <div id="loading" class="card loading" style="display:none;">
+            <div class="spinner"></div>
+            <div class="loading-steps">
+                <div class="loading-step" id="step1"><span class="step-icon">🎤</span><span>Uploading audio...</span></div>
+                <div class="loading-step" id="step2"><span class="step-icon">🧠</span><span>Whisper Large V3 transcribing...</span></div>
+                <div class="loading-step" id="step3"><span class="step-icon">🔄</span><span>Translating to English...</span></div>
+                <div class="loading-step" id="step4"><span class="step-icon">🕉️</span><span>Converting to Devanagari...</span></div>
+            </div>
+        </div>
+
+        <!-- RESULTS -->
+        <div id="results" class="results" style="display:none;">
+            <h2>✨ Results</h2>
+
+            <div class="result-card romanized">
+                <div class="result-header">
+                    <div class="result-label"><span class="result-icon">📝</span><span>Romanized Text</span></div>
+                    <button class="copy-btn" onclick="copyText('romanizedText')">📋 Copy</button>
+                </div>
+                <div class="result-text" id="romanizedText">—</div>
+                <div class="result-hint">Exactly as you spoke it</div>
+            </div>
+
+            <div class="result-card english">
+                <div class="result-header">
+                    <div class="result-label"><span class="result-icon">🔤</span><span>English Translation</span></div>
+                    <button class="copy-btn" onclick="copyText('englishText')">📋 Copy</button>
+                </div>
+                <div class="result-text" id="englishText">—</div>
+                <div class="result-hint">Translated meaning</div>
+            </div>
+
+            <div class="result-card devanagari">
+                <div class="result-header">
+                    <div class="result-label"><span class="result-icon">🕉️</span><span>Devanagari Script</span></div>
+                    <button class="copy-btn" onclick="copyText('devanagariText')">📋 Copy</button>
+                </div>
+                <div class="result-text devanagari-font" id="devanagariText">—</div>
+                <div class="result-hint">Same pronunciation · Devanagari script</div>
+            </div>
+
+            <div class="metadata">
+                <span>🌍 Language: <strong id="detectedLang">—</strong></span>
+                <span>🎯 Confidence: <strong id="confidence">—</strong></span>
+                <span>🤖 Whisper Large V3</span>
+            </div>
+
+            <button class="btn-again" onclick="recordAgain()">🎤 Record Again</button>
+        </div>
+
+    </main>
+
+    <footer class="footer">
+        <p>Powered by Whisper Large V3 • FastAPI • Google Colab</p>
+    </footer>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
