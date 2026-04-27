@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Voice to Text Transcriber</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="background-blobs">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+    </div>
+    
+    <main class="container">
+        <header>
+            <h1>Voice Transcriber</h1>
+            <p class="subtitle">Convert your speech to text in real-time</p>
+        </header>
+
+        <section class="controls">
+            <div class="language-selector">
+                <label for="language">Select Language:</label>
+                <select id="language">
+                    <option value="en-US">English (US)</option>
+                    <option value="en-GB">English (UK)</option>
+                    <option value="ne-NP">Nepali (नेपाली)</option>
+                </select>
+            </div>
+
+            <button id="record-btn" class="record-btn">
+                <span class="icon">🎤</span>
+                <span class="btn-text">Start Recording</span>
+                <div class="ripple"></div>
+            </button>
+            <p id="status-text" class="status-text">Click to start</p>
+        </section>
+
+        <section class="output-section">
+            <div class="output-header">
+                <h3>Transcription</h3>
+                <div class="action-buttons">
+                    <button id="clear-btn" class="icon-btn" title="Clear text">🗑️</button>
+                    <button id="copy-btn" class="icon-btn" title="Copy to clipboard">📋</button>
+                </div>
+            </div>
+            <div id="output-box" class="output-box">
+                <span id="final-text" class="final"></span>
+                <span id="interim-text" class="interim"></span>
+            </div>
+        </section>
+
+        <section class="history-section" id="history-section" style="display: none;">
+            <div class="output-header">
+                <h3>History</h3>
+                <button id="clear-history-btn" class="icon-btn" title="Clear all history">🗑️</button>
+            </div>
+            <div id="history-list" class="history-list">
+                <!-- History items injected here -->
+            </div>
+        </section>
+    </main>
+    <script src="script.js"></script>
+</body>
+</html>

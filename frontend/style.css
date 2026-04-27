@@ -1,0 +1,329 @@
+:root {
+    --bg-dark: #0f172a;
+    --bg-card: rgba(30, 41, 59, 0.7);
+    --primary: #3b82f6;
+    --primary-hover: #2563eb;
+    --accent: #8b5cf6;
+    --text-main: #f8fafc;
+    --text-muted: #94a3b8;
+    --border: rgba(255, 255, 255, 0.1);
+    --danger: #ef4444;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Outfit', sans-serif;
+    background-color: var(--bg-dark);
+    color: var(--text-main);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    overflow-x: hidden;
+    overflow-y: auto;
+    position: relative;
+    padding: 40px 0;
+}
+
+/* Dynamic Background Blobs */
+.background-blobs {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 0;
+    overflow: hidden;
+}
+
+.blob {
+    position: absolute;
+    filter: blur(100px);
+    border-radius: 50%;
+    opacity: 0.5;
+    animation: float 10s infinite ease-in-out alternate;
+}
+
+.blob-1 {
+    width: 400px;
+    height: 400px;
+    background: var(--primary);
+    top: -100px;
+    left: -100px;
+}
+
+.blob-2 {
+    width: 500px;
+    height: 500px;
+    background: var(--accent);
+    bottom: -150px;
+    right: -100px;
+    animation-delay: -5s;
+}
+
+@keyframes float {
+    0% { transform: translate(0, 0) scale(1); }
+    100% { transform: translate(30px, 50px) scale(1.1); }
+}
+
+/* Main Container (Glassmorphism) */
+.container {
+    position: relative;
+    z-index: 1;
+    background: var(--bg-card);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid var(--border);
+    border-radius: 24px;
+    padding: 40px;
+    width: 90%;
+    max-width: 600px;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    margin: auto;
+}
+
+header {
+    text-align: center;
+}
+
+h1 {
+    font-size: 2.5rem;
+    font-weight: 600;
+    background: linear-gradient(to right, #60a5fa, #c084fc);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 8px;
+}
+
+.subtitle {
+    color: var(--text-muted);
+    font-size: 1.1rem;
+}
+
+/* Controls */
+.controls {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+.language-selector {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: rgba(0, 0, 0, 0.2);
+    padding: 10px 20px;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+}
+
+select {
+    background: transparent;
+    color: var(--text-main);
+    border: none;
+    font-family: inherit;
+    font-size: 1rem;
+    outline: none;
+    cursor: pointer;
+}
+
+select option {
+    background: var(--bg-dark);
+    color: var(--text-main);
+}
+
+.record-btn {
+    position: relative;
+    background: linear-gradient(135deg, var(--primary), var(--accent));
+    color: white;
+    border: none;
+    border-radius: 50px;
+    padding: 15px 40px;
+    font-size: 1.2rem;
+    font-family: inherit;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    transition: all 0.3s ease;
+    overflow: hidden;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.record-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 15px 25px rgba(0, 0, 0, 0.3);
+}
+
+.record-btn.recording {
+    background: var(--danger);
+    animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+    0% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7); }
+    70% { box-shadow: 0 0 0 20px rgba(239, 68, 68, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
+}
+
+.status-text {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    height: 20px;
+}
+
+/* Output Section */
+.output-section {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.output-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.output-header h3 {
+    font-size: 1.2rem;
+    font-weight: 400;
+    color: var(--text-muted);
+}
+
+.action-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+.icon-btn {
+    background: transparent;
+    border: none;
+    color: var(--text-muted);
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: color 0.2s;
+    padding: 5px;
+}
+
+.icon-btn:hover {
+    color: var(--text-main);
+}
+
+.output-box {
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    min-height: 150px;
+    padding: 20px;
+    font-size: 1.1rem;
+    line-height: 1.6;
+    overflow-y: auto;
+    max-height: 300px;
+    position: relative;
+    text-align: left;
+}
+
+.output-box:empty::before {
+    content: "Your transcription will appear here...";
+    color: rgba(148, 163, 184, 0.5);
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    pointer-events: none;
+}
+
+.interim {
+    color: var(--text-muted);
+    font-style: italic;
+    display: inline;
+}
+
+.final {
+    color: var(--text-main);
+    display: inline;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+    .container {
+        padding: 30px 20px;
+    }
+    h1 {
+        font-size: 2rem;
+    }
+}
+
+/* History Section */
+.history-section {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 20px;
+    border-top: 1px solid var(--border);
+    padding-top: 20px;
+}
+
+.history-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    max-height: 400px;
+    overflow-y: auto;
+    padding-right: 10px;
+}
+
+.history-item {
+    background: rgba(0, 0, 0, 0.2);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    transition: transform 0.2s ease;
+}
+
+.history-item:hover {
+    transform: translateX(5px);
+    border-color: var(--primary);
+}
+
+.history-item-header {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+}
+
+.history-item-text {
+    font-size: 1rem;
+    color: var(--text-main);
+    line-height: 1.4;
+}
+
+.history-item audio {
+    width: 100%;
+    height: 36px;
+    outline: none;
+    border-radius: 8px;
+}
+
+.history-item audio::-webkit-media-controls-panel {
+    background-color: var(--bg-dark);
+}
+.history-item audio::-webkit-media-controls-current-time-display,
+.history-item audio::-webkit-media-controls-time-remaining-display {
+    color: var(--text-main);
+}
